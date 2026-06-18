@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const socket = io();
 
 function LiveChat() {
   const [chats, setChats] = useState([]);
@@ -34,7 +34,7 @@ function LiveChat() {
   // Fetch AI status when target changes
   useEffect(() => {
     if (targetWa) {
-      fetch(`http://localhost:3001/api/kontak/${targetWa}`)
+      fetch(`/api/kontak/${targetWa}`)
         .then(res => res.json())
         .then(data => {
           setIsAiActive(data.is_ai_active === 1);
@@ -47,7 +47,7 @@ function LiveChat() {
     const newStatus = !isAiActive;
     setIsAiActive(newStatus);
     try {
-      await fetch('http://localhost:3001/api/kontak/toggle-ai', {
+      await fetch('/api/kontak/toggle-ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nomor_wa: targetWa, is_ai_active: newStatus })

@@ -13,6 +13,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const path = require('path');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_wa_cs_key_2026';
 
@@ -36,6 +37,9 @@ const io = new Server(server, { cors: { origin: '*' } });
 
 // Static route untuk gambar
 app.use('/uploads', express.static('uploads'));
+
+// Static route untuk React Frontend
+app.use(express.static(path.join(__dirname, 'wa-cs-frontend/build')));
 
 // Middleware API
 app.use(cors());
@@ -205,7 +209,8 @@ const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
         handleSIGINT: false,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || null,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     }
 });
 
@@ -1220,7 +1225,13 @@ app.post('/api/settings', async (req, res) => {
 });
 // -----------------------------
 
+// Catch-all route untuk React Frontend (harus di paling bawah API routes)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'wa-cs-frontend/build', 'index.html'));
+});
+
 client.initialize();
-server.listen(3001, () => {
-    console.log('Server Backend berjalan di port 3001');
+const PORT = process.env.PORT || 7860;
+server.listen(PORT, () => {
+    console.log(`Server Backend berjalan di port ${PORT}`);
 });

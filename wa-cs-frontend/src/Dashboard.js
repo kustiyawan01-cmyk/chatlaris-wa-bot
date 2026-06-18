@@ -3,7 +3,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { MessageSquare, Package, DollarSign, ShoppingCart, TrendingUp, Sparkles, Server } from 'lucide-react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const socket = io();
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -22,7 +22,7 @@ function Dashboard() {
   const fetchData = async () => {
     try {
       // Ambil Dashboard Stats
-      const resStats = await fetch(`http://localhost:3001/api/dashboard-stats?filter=${timeFilter}`);
+      const resStats = await fetch(`/api/dashboard-stats?filter=${timeFilter}`);
       const dataStats = await resStats.json();
       
       setOrders(dataStats.recentOrders || []);
@@ -48,7 +48,7 @@ function Dashboard() {
       ];
       setChartData(mockChartData);
 
-      const resProduk = await fetch('http://localhost:3001/api/produk');
+      const resProduk = await fetch('/api/produk');
       const dataProduk = await resProduk.json();
       const productList = Array.isArray(dataProduk) ? dataProduk : dataProduk.data || [];
 

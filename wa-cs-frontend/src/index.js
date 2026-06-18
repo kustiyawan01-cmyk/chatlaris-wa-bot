@@ -22,7 +22,7 @@ window.fetch = async (...args) => {
   
   const response = await originalFetch(resource, config);
   
-  if (response.status === 401 && resource !== 'http://localhost:3001/api/login') {
+  if (response.status === 401 && resource !== '/api/login') {
     // Sesi berakhir / tidak valid, paksa logout
     if (localStorage.getItem('token')) {
       localStorage.removeItem('token');

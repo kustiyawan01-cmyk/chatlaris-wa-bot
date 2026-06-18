@@ -81,7 +81,7 @@ function Settings({ initialTab = 'template' }) {
   const fetchAccount = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3001/api/me', {
+      const res = await fetch('/api/me', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -101,7 +101,7 @@ function Settings({ initialTab = 'template' }) {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/settings');
+      const res = await fetch('/api/settings');
       const data = await res.json();
       if (data) {
         setForm({
@@ -148,7 +148,7 @@ function Settings({ initialTab = 'template' }) {
     setStatus('');
 
     try {
-      const res = await fetch('http://localhost:3001/api/settings', {
+      const res = await fetch('/api/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -170,7 +170,7 @@ function Settings({ initialTab = 'template' }) {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3001/api/me', {
+      const res = await fetch('/api/me', {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ import Orderku from './Orderku';
 import Login from './Login';
 import { LogOut, X } from 'lucide-react';
 
-const socket = io('http://localhost:3001');
+const socket = io();
 
 function App() {
   const [activeMenu, setActiveMenu] = useState('Fitur Pendukung');
@@ -27,7 +27,7 @@ function App() {
   // Fetch user profile on auth
   useEffect(() => {
     if (isAuthenticated) {
-      fetch('http://localhost:3001/api/me')
+      fetch('/api/me')
         .then(res => res.json())
         .then(data => {
           if (!data.error) setUserProfile(data);
@@ -45,7 +45,7 @@ function App() {
     if (!isAuthenticated) return;
     
     // Fetch initial status
-    fetch('http://localhost:3001/api/wa-status')
+    fetch('/api/wa-status')
       .then(res => res.json())
       .then(data => {
         if (data.status === 'CONNECTED') {

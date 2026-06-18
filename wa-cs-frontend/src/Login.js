@@ -98,7 +98,7 @@ function Login({ onLoginSuccess }) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/api/login', {
+      const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: loginEmail, password: loginPassword })
@@ -124,7 +124,7 @@ function Login({ onLoginSuccess }) {
     if (regPassword !== regConfirmPassword) return toast.error('Password tidak cocok!');
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/api/register', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: regEmail, nama_lengkap: regName, nomor_wa: regPhone, password: regPassword })
@@ -148,7 +148,7 @@ function Login({ onLoginSuccess }) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/api/forgot-password', {
+      const res = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: forgotEmail })
@@ -172,7 +172,7 @@ function Login({ onLoginSuccess }) {
     if (newPassword !== confirmNewPassword) return toast.error('Password tidak cocok!');
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/api/reset-password', {
+      const res = await fetch('/api/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: resetToken, newPassword })

@@ -16,7 +16,7 @@ function ChatHistory() {
   const fetchHistory = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:3001/api/history');
+      const res = await fetch('/api/history');
       const data = await res.json();
       setHistory(data.reverse()); // Data dari backend ORDER BY id DESC (terbaru di atas), kita balik agar kronologis untuk render
     } catch (err) {

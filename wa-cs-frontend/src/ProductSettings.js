@@ -33,7 +33,7 @@ function ProductSettings() {
   const fetchProduk = async (page = 1, search = '') => {
     try {
       setFetching(true);
-      const res = await fetch(`http://localhost:3001/api/produk?page=${page}&limit=10&search=${search}`);
+      const res = await fetch(`/api/produk?page=${page}&limit=10&search=${search}`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setProduk(data);
@@ -85,7 +85,7 @@ function ProductSettings() {
     }
 
     try {
-      const res = await fetch('http://localhost:3001/api/produk', {
+      const res = await fetch('/api/produk', {
         method: 'POST',
         body: formData
       });
@@ -132,7 +132,7 @@ function ProductSettings() {
     }
 
     try {
-      const res = await fetch(`http://localhost:3001/api/produk/${editForm.id}`, {
+      const res = await fetch(`/api/produk/${editForm.id}`, {
         method: 'PUT',
         body: formData
       });
@@ -167,7 +167,7 @@ function ProductSettings() {
     if (!deleteConfirmId) return;
     
     try {
-      await fetch(`http://localhost:3001/api/produk/${deleteConfirmId}`, { method: 'DELETE' });
+      await fetch(`/api/produk/${deleteConfirmId}`, { method: 'DELETE' });
       setProduk(produk.filter(p => p.id !== deleteConfirmId));
       setDeleteConfirmId(null);
       toast.success('Produk dihapus!');
@@ -179,7 +179,7 @@ function ProductSettings() {
 
   const handleToggle = async (id) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/produk/${id}/toggle`, { method: 'PUT' });
+      const res = await fetch(`/api/produk/${id}/toggle`, { method: 'PUT' });
       const data = await res.json();
       if (data.success) {
         setProduk(produk.map(p => p.id === id ? { ...p, is_active: data.is_active } : p));
@@ -310,7 +310,7 @@ function ProductSettings() {
                     <td style={{ ...tdStyle, width: '80px' }}>
                         <div style={{ width: '60px', height: '60px', borderRadius: '12px', background: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
                             {p.gambar ? (
-                                <img src={`http://localhost:3001${p.gambar}`} alt={p.nama} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <img src={`p.gambar`} alt={p.nama} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             ) : (
                                 <ImageIcon size={24} color="var(--text-secondary)" />
                             )}

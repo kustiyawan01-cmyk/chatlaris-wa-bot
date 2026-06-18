@@ -3,7 +3,7 @@ import { Package, Search, Edit2, Plus, DollarSign, Clock, CheckCircle, Trash2, X
 import { io } from 'socket.io-client';
 import toast from 'react-hot-toast';
 
-const socket = io('http://localhost:3001');
+const socket = io();
 
 function Orderku() {
   const [orders, setOrders] = useState([]);
@@ -33,7 +33,7 @@ function Orderku() {
 
   const fetchOrders = async (page = 1, searchQuery = '') => {
     try {
-      const res = await fetch(`http://localhost:3001/api/orders?page=${page}&limit=10&search=${searchQuery}`);
+      const res = await fetch(`/api/orders?page=${page}&limit=10&search=${searchQuery}`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setOrders(data);
@@ -85,7 +85,7 @@ function Orderku() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`http://localhost:3001/api/orders/${selectedOrder.id}/status`, {
+      await fetch(`/api/orders/${selectedOrder.id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm)
@@ -101,7 +101,7 @@ function Orderku() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch('http://localhost:3001/api/orders', {
+      await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -124,7 +124,7 @@ function Orderku() {
   const handleDeleteOrder = async (id) => {
     if(!window.confirm('Yakin ingin menghapus riwayat pesanan ini?')) return;
     try {
-      await fetch(`http://localhost:3001/api/orders/${id}`, { method: 'DELETE' });
+      await fetch(`/api/orders/${id}`, { method: 'DELETE' });
       toast.success('Pesanan dihapus!');
       fetchOrders();
     } catch (err) {

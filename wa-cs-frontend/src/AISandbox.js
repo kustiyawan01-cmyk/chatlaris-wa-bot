@@ -28,7 +28,7 @@ function AISandbox() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3001/api/sandbox', {
+      const res = await fetch('/api/sandbox', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pesan: userMessage.text })

@@ -1,0 +1,10 @@
+node_modules
+.env
+database.sqlite
+.wwebjs_auth
+.wwebjs_cache
+wa-cs-frontend/node_modules
+
+wa-cs-frontend/.env
+*.log
+.git
